@@ -1,0 +1,410 @@
+﻿#include <iostream>
+#include <string> 
+#include <stdlib.h> 
+#include <time.h>
+#include <iomanip>
+
+using namespace std;
+
+const unsigned int N = 5;
+
+struct Games {
+	string hostTeamName;
+	string guestTeamName;
+	int hostGoals;
+	int guestGoals;
+};
+
+struct FootballTeam {
+	int registrationNumber;
+	string teamName;
+	int createdYear;
+	string city;
+	Games footballGames[2 * N];
+	//struct Games footballGameScores[10];
+};
+
+/* struct Player {
+	string name;
+	string city;
+}; */
+
+// Номер на регистрация, Име на отбор, Година на основаване, списък с изиграни срещи
+void addTeams(FootballTeam team[], int &size, int numberOfTeams) {
+	FootballTeam buff;
+
+	if (numberOfTeams == 1) {
+		cout << "=== N === " << N << endl;
+		cin.ignore();
+		cout << "Въведи име на отбора: ";
+		getline(cin, buff.teamName);
+		cout << "Въведи година на създаване на отбора: ";
+		cin >> buff.createdYear;
+		cout << "Въведете град на основаване на отбора: ";
+		cin >> buff.city;
+
+		buff.registrationNumber = (N - size) + 1; 
+
+		team[N - size] = buff;
+
+		size--;
+	} else {
+		for (int i = 0; i < numberOfTeams; i++) 
+		{
+			cout << "=== N === " << N << endl;
+			cin.ignore();
+			cout << "Въведи име на отбора: ";
+			getline(cin, team[N - size].teamName);
+			cout << "Въведи година на създаване на отбора: ";
+			cin >> team[N - size].createdYear;
+			cout << "Въведете град на основаване на отбора: ";
+			cin >> team[N - size].city;
+			
+			team[N - size].registrationNumber = (N - size) + 1;
+			
+			size--;
+		}
+	}
+}
+
+void printTeams(FootballTeam team[], int size) {
+	for (int i = 0; i < N - size; i++)
+	{
+		cout << "Регистрация номер: " << "#000" << team[i].registrationNumber << endl;
+		cout << "Име на отбор: " << team[i].teamName << endl;
+		cout << "Година на създаване на отбора: " << team[i].createdYear << endl;
+		cout << "Град на основаване: " << team[i].city << endl;
+	}
+}
+
+void earliestCreatedTeam(FootballTeam team[], int size) {
+	FootballTeam temp;
+	temp = team[0];
+
+	cout << "temp year" << temp.createdYear << "temp name " << temp.teamName << endl;
+
+	for (int i = 1; i < N - size; i++) {
+		if (temp.createdYear > team[i].createdYear) {
+			temp.createdYear = team[i].createdYear;
+			temp.teamName = team[i].teamName;
+
+			cout << "=temp year" << temp.createdYear << "temp name " << temp.teamName << endl;
+		}
+	}
+
+	cout << "Най-ранно създаденият отбор е " << temp.teamName << " създаден през " << temp.createdYear << " година." << endl << endl;
+}
+
+/*
+struct Games {
+	string hostTeamName;
+	string guestTeamName;
+	int hostGoals;
+	int guestGoals;
+};
+*/
+
+void footballMatches(FootballTeam team[], int size) {
+	srand(unsigned int(time(NULL)));
+
+	/*
+		Всички отбори се срещат помежду си в разменени гостувания,
+		на случаен принцип се генерира резултата от срещата и се записва в списък с изиграни срещи за двата участващи отбора
+	*/
+	cout << "===============================================" << endl;
+	for (int t = 0; t < (N - size); t++)
+	{
+		cout << "Регистрация номер: " << "#000" << team[t].registrationNumber << endl;
+		cout << "Име на отбор: " << team[t].teamName << endl;
+		cout << "Година на създаване на отбора: " << team[t].createdYear << endl;
+		cout << "Град на основаване: " << team[t].city << endl;
+	}
+	for (int i = 0; i < (N - size); i++)
+	{
+		int k(0);
+		for (int j = 0; j < (N - size); j++)
+		{
+			if (i != j) {
+				team[i].footballGames[k].hostTeamName = team[i].teamName;
+				team[i].footballGames[k].guestTeamName = team[j].teamName;
+				team[i].footballGames[k].hostGoals = rand() % 10 + 1;
+				team[i].footballGames[k].guestGoals = rand() % 10 + 1;
+
+				team[j].footballGames[k].hostTeamName = team[i].teamName;
+				team[j].footballGames[k].guestTeamName = team[j].teamName;
+				team[j].footballGames[k].hostGoals = team[i].footballGames[k].hostGoals;
+				team[j].footballGames[k].guestGoals = team[i].footballGames[k].guestGoals;
+
+				cout << "1st" << endl;
+				cout <<
+					"Host Team Name: " << team[i].footballGames[k].hostTeamName << endl <<
+					"Guest Team Name: " << team[i].footballGames[k].guestTeamName << endl <<
+					"Host Goals: " << team[i].footballGames[k].hostGoals << endl <<
+					"Guest Goals: " << team[i].footballGames[k].guestGoals << endl;
+
+				cout << "2nd" << endl;
+				cout <<
+					"Host Team Name: " << team[j].footballGames[k].hostTeamName << endl <<
+					"Guest Team Name: " << team[j].footballGames[k].guestTeamName << endl <<
+					"Host Goals: " << team[j].footballGames[k].hostGoals << endl <<
+					"Guest Goals: " << team[j].footballGames[k].guestGoals << endl;
+
+				k++; 
+			}
+			else {
+				cout << "Един и същ отбор!" << endl;
+			}
+		} // /j
+	} // /i
+	/*
+	struct Games {
+		string hostTeamName;
+		string guestTeamName;
+		int hostGoals;
+		int guestGoals;
+	};
+	*/
+	//if (N == 3) {
+
+/*
+		for (int i = 0; i < 3; i++)
+		{
+			if (team[i + 1].teamName != team[i].teamName) { // team i + 1 != team i
+				cout << endl << "============== Check: 2 ==============" << endl;
+
+				game[i].hostTeamName = team[i + 1].teamName;
+				game[i].guestTeamName = team[i].teamName;
+				game[i].guestGoals = rand() % 10 + 1;
+				game[i].hostGoals = rand() % 10 + 1;
+
+				cout << game[i].hostTeamName << " : " << game[i].guestTeamName << " -> " << game[i].hostGoals << " : " << game[i].guestGoals << endl << endl;
+			}
+
+			cout << endl << "============== Without Check ==============" << endl;
+
+			game[i].hostTeamName = team[0].teamName;
+			game[i].guestTeamName = team[i].teamName;
+			game[i].guestGoals = rand() % 10 + 1;
+			game[i].hostGoals = rand() % 10 + 1;
+
+			cout << game[i].hostTeamName << " : " << game[i].guestTeamName << " -> " << game[i].hostGoals << " : " << game[i].guestGoals << endl << endl;
+
+			if (team[i].teamName != team[i + 1].teamName){ // team i != team i + 1
+				cout << endl << "============== Check: 3 ==============" << endl;
+
+				game[i].hostTeamName = team[i].teamName;
+				game[i].guestTeamName = team[i + 1].teamName;
+				game[i].guestGoals = rand() % 10 + 1;
+				game[i].hostGoals = rand() % 10 + 1;
+
+				cout << game[i].hostTeamName << " : " << game[i].guestTeamName << " -> " << game[i].hostGoals << " : " << game[i].guestGoals << endl << endl;
+			}
+		}
+*/
+
+		/*
+		Първи цикъл
+			Spartak : Spartak -> 9 : 4
+
+			Spartak : Botev -> 8 : 5
+
+			Втори цикъл
+			Botev : Spartak -> 7 : 1
+
+			Levski : Botev -> 8 : 4
+
+			Трети цикъл
+			Spartak : Botev -> 9 : 5
+
+			Botev : Levski -> 2 : 5
+
+			team 1 vs team 2
+			team 1 vs team 3
+			team 2 vs team 1
+			team 2 vs team 3
+			team 3 vs team 1
+			team 3 vs team 
+		*/
+	//}
+
+
+/*
+	for (int i = 0; i < N; i++)
+	{
+		game[i].hostTeamName = team[i].teamName;
+		game[i].guestTeamName = team[0].teamName;
+		game[i].guestGoals = rand() % 10 + 1;
+		game[i].hostGoals = rand() % 10 + 1;
+
+		cout << game[i].guestTeamName << " : " << game[i].hostTeamName << " -> " << game[i].guestGoals << " : " << game[i].hostGoals << endl << endl;
+	}
+*/
+}
+
+/*
+team 2 : team 1 -> 3 : 5
+team 1 : team 2 -> 4 : 3
+team 1 : team 3 -> 4 : 1
+===========================
+Levski : Cherno More -> 4 : 6
+
+Cherno More : Levski -> 8 : 9
+
+Cherno More : Botev Plovdiv -> 9 : 5
+
+Cherno More :  -> 1 : 4
+
+Cherno More :  -> 4 : 2
+
+Cherno More :  -> 3 : 4
+*/
+
+/*
+void footballMatches(FootballTeam team[], int N) {
+	srand(unsigned int(time(NULL)));
+
+	int score(0), firstScore, secondScore;
+	string tName;
+
+	for (int i = 0; i < (N * 2); i++)
+	{
+		if (team[0].teamName != team[i].teamName) {
+			team[i].footballGameScores[i].hostGoals = rand() % 10 + 1;
+			team[i].footballGameScores[i].guestGoals = rand() % 10 + 1;
+			team[i].footballGameScores[i].hostTeamName = team[0].teamName;
+			team[i].footballGameScores[i].guestTeamName = team[i].teamName;
+		}
+
+		cout << team[i].footballGameScores[i].hostTeamName << " vs " << team[i].footballGameScores[i].guestTeamName << " : " << "[" << team[i].footballGameScores[i].hostGoals << ":" << team[i].footballGameScores[i].guestGoals << "]" << endl << endl;
+	}
+}
+*/
+
+/*
+void displayAsTable(FootballTeam team[], int N) {
+	const char separator = ' ';
+	const int nameWidth = 6;
+	const int numWidth = 8;
+
+	cout << left << setw(nameWidth) << setfill(separator) << "Отбор 1: ";
+	cout << left << setw(nameWidth) << setfill(separator) << "Отбор 2: ";
+	cout << left << setw(nameWidth) << setfill(separator) << team->teamName[0];
+	cout << left << setw(numWidth) << setfill(separator) << 10.96;
+	cout << left << setw(numWidth) << setfill(separator) << 7.61;
+	cout << left << setw(numWidth) << setfill(separator) << 14.39;
+	cout << left << setw(numWidth) << setfill(separator) << 2.11;
+	cout << left << setw(numWidth) << setfill(separator) << 47.30;
+	cout << left << setw(numWidth) << setfill(separator) << 14.21;
+	cout << left << setw(numWidth) << setfill(separator) << 44.58;
+	cout << left << setw(numWidth) << setfill(separator) << 5.00;
+	cout << left << setw(numWidth) << setfill(separator) << 60.23;
+	cout << endl;
+}
+*/
+
+/*
+void searchTeams(FootballTeam team[], int N) {
+	string userInput, hostTeam, guestTeam;
+	int hostScore, guestScore;
+
+	cout << "Въведи име на отбор: ";
+	cin.ignore();
+	getline(cin, userInput);
+
+	for (int i = 0; i < 10; i++)
+	{
+		if (userInput != team[i].teamName) {
+				// hostTeam = team[i].footballGameScores[i].hostTeamName;
+				// guestTeam = team[i].footballGameScores[i].guestTeamName;
+				// hostScore = team[i].footballGameScores[i].hostGoals;
+				// guestScore = team[i].footballGameScores[i].guestGoals;
+
+			cout << "Резултати: " << endl;
+			cout << userInput << " : " << team[i].teamName << " " << team[i].footballGameScores[i].hostGoals << " : " << team[i].footballGameScores[i].guestGoals << endl;
+		}
+	}
+}
+*/
+
+/*
+void smallestNumberOfLoses(FootballTeam team[], int N) {
+	string tempName;
+	for (int i = 0; i < N; i++)
+	{
+		team[i].footballGameScores[i].hostGoals > team[i].footballGameScores[i].guestGoals ? tempName = team[i].footballGameScores[i].hostTeamName : tempName = team[i].footballGameScores[i].guestTeamName;
+	}
+
+	cout << "Най-малко загуби има отбор: " << tempName << endl << endl;
+}
+*/
+
+int main()
+{
+	setlocale(LC_ALL, "bg_BG");
+
+	int userChoice, numberOfTeams(0), size = N;
+	bool flag = false;
+	FootballTeam teams[N];
+	//Games game[20];
+
+	do
+	{
+		do
+		{
+			cout << "=========== Меню ===========" << endl;
+			cout << "1.Въвеждане на участници" << endl;
+			cout << "2.Извеждане на участници" << endl;
+			cout << "3.Извеждане на най-ранно създадения отбор" << endl;
+			cout << "4.Извеждане на отбора с най-малко загуби" << endl;
+			cout << "5.Извеждане на изиграните срещи" << endl;
+			cout << "6.Търсене на отбори" << endl;
+			cout << "Избор [1-6]: ";
+			cin >> userChoice;
+		} while (userChoice < 1 || userChoice > 6);
+
+		//system("cls");
+
+		switch (userChoice) {
+		case 1:
+			cout << "=========== Въвеждане на участници ===========" << endl << endl;
+			//cout << "Колко участници искате да добавите [3-5] ? ";
+			
+			//cin >> N;
+			do {
+				cout << "Моля въведете число в интервала [1-5]: " << "Можете да въведете още " << size << " отбора.";
+				cin >> numberOfTeams; 
+			} while (numberOfTeams < 1 || numberOfTeams > size);
+
+			addTeams(teams, size, numberOfTeams);
+			break;
+		case 2:
+			cout << "=========== Извеждане на участници ===========" << endl << endl;
+			printTeams(teams, size);
+			break;
+		case 3:
+			cout << "=========== Извеждане на най-ранно създадения отбор ===========" << endl << endl;
+			earliestCreatedTeam(teams, size);
+			break;
+		case 4:
+			cout << "=========== Извеждане на отбора с най-малко загуби ===========" << endl << endl;
+			//smallestNumberOfLoses(teams, N);
+			break;
+		case 5:
+			cout << "=========== Извеждане на срещите ===========" << endl << endl;
+			footballMatches(teams, size);
+			break;
+		case 6: 
+			//cout << "Таблица" << endl << endl;
+			//displayAsTable(teams, N);
+			cout << "=========== Търсене на отбори ===========" << endl << endl;
+			//searchTeams(teams, N);
+			break;
+		default:
+			cout << "Край на програмата." << endl;
+			exit(0);
+		}
+	} while (userChoice != 6);
+
+	system("pause>null");
+	return 0;
+}

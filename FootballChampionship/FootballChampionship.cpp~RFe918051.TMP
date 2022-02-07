@@ -1,0 +1,291 @@
+﻿#include <iostream>
+#include <string> 
+#include <stdlib.h> 
+#include <time.h>
+#include <iomanip>
+
+using namespace std;
+
+const unsigned int N = 5;
+const char separator = ' ';
+const int nameWidth = 6;
+const int numWidth = 8;
+
+struct Games {
+	string hostTeamName;
+	string guestTeamName;
+	int hostGoals;
+	int guestGoals;
+};
+
+struct FootballTeam {
+	int registrationNumber;
+	string teamName;
+	int createdYear;
+	string city;
+	Games footballGames[2 * N];
+	//struct Games footballGameScores[10];
+};
+
+void addTeams(FootballTeam team[], int &size, int numberOfTeams) {
+	setlocale(LC_ALL, "bg_BG");
+
+	FootballTeam buff;
+
+	if (numberOfTeams == 1) {
+		cout << "=== N === " << N << endl;
+		cin.ignore();
+		cout << "Въведи име на отбора: ";
+		getline(cin, buff.teamName);
+		cout << "Въведи година на създаване на отбора: ";
+		cin >> buff.createdYear;
+		cout << "Въведете град на основаване на отбора: ";
+		cin >> buff.city;
+
+		buff.registrationNumber = (N - size) + 1; 
+
+		team[N - size] = buff;
+
+		size--;
+	} else {
+		for (int i = 0; i < numberOfTeams; i++) 
+		{
+			cout << "=== N === " << N << endl;
+			cin.ignore();
+			cout << "Въведи име на отбора: ";
+			getline(cin, team[N - size].teamName);
+			cout << "Въведи година на създаване на отбора: ";
+			cin >> team[N - size].createdYear;
+			cout << "Въведете град на основаване на отбора: ";
+			cin >> team[N - size].city;
+			
+			team[N - size].registrationNumber = (N - size) + 1;
+			
+			size--;
+		}
+	}
+	cout << "\nМожете да въведете още " << size << " отбора." << endl;
+}
+
+void printTeams(FootballTeam team[], int size) {
+	setlocale(LC_ALL, "bg_BG");
+
+	for (int i = 0; i < N - size; i++)
+	{
+		cout << "Регистрация номер: " << "#000" << team[i].registrationNumber << endl;
+		cout << "Име на отбор: " << team[i].teamName << endl;
+		cout << "Година на създаване на отбора: " << team[i].createdYear << endl;
+		cout << "Град на основаване: " << team[i].city << endl << endl;
+	}
+}
+
+void earliestCreatedTeam(FootballTeam team[], int size) {
+	setlocale(LC_ALL, "bg_BG");
+
+	FootballTeam temp;
+	temp = team[0];
+
+	for (int i = 1; i < N - size; i++) {
+		if (temp.createdYear > team[i].createdYear) {
+			temp.createdYear = team[i].createdYear;
+			temp.teamName = team[i].teamName;
+		}
+	}
+
+	cout << "Най-ранно създаденият отбор е " << temp.teamName << " създаден през " << temp.createdYear << " година." << endl << endl;
+}
+
+void footballMatches(FootballTeam team[], int size) {
+	setlocale(LC_ALL, "bg_BG");
+
+	srand(unsigned int(time(NULL)));
+
+	int k(0);
+	/*
+		Всички отбори се срещат помежду си в разменени гостувания,
+		на случаен принцип се генерира резултата от срещата и се записва в списък с изиграни срещи за двата участващи отбора
+	*/
+	cout << "| Host Team Name | " << setw(12) << "Guest Team Name | " << setw(12) << "Host Goals | " << setw(12) << "Guest Goals |" << endl << endl;
+
+	for (int i = 0; i < (N - size); i++)
+	{
+		for (int j = 0; j < (N - size); j++)
+		{
+			if (i != j) {
+				team[i].footballGames[k].hostTeamName = team[i].teamName;
+				team[i].footballGames[k].guestTeamName = team[j].teamName;
+				team[i].footballGames[k].hostGoals = rand() % 10 + 1;
+				team[i].footballGames[k].guestGoals = rand() % 10 + 1;
+
+				team[j].footballGames[k].hostTeamName = team[i].teamName;
+				team[j].footballGames[k].guestTeamName = team[j].teamName;
+				team[j].footballGames[k].hostGoals = team[i].footballGames[k].hostGoals;
+				team[j].footballGames[k].guestGoals = team[i].footballGames[k].guestGoals;
+
+				cout << team[i].footballGames[k].hostTeamName << setw(17) << team[i].footballGames[k].guestTeamName << setw(15) << team[i].footballGames[k].hostGoals
+					<< setw(15) << team[i].footballGames[k].guestGoals << endl;
+				k++; 
+			}	
+		} // /j
+	} // /i
+	cout << endl;
+}
+
+void searchTeams(FootballTeam team[], int size) {
+	string userInput, hostTeam, guestTeam;
+	int hostScore, guestScore, k(0);
+	bool flag(0);
+
+	cout << "Въведете име на отбор: ";
+	cin.ignore();
+	getline(cin, userInput);
+
+	for (int i = 0; i < (N - size); i++)
+	{
+		for (int j = 0; j < (N - size); j++)
+		{
+			if (userInput == team[i].teamName) {
+				hostTeam = team[i].footballGames[i].hostTeamName;
+				guestTeam = team[i].footballGames[i].guestTeamName;
+				hostScore = team[i].footballGames[i].hostGoals;
+				guestScore = team[i].footballGames[i].guestGoals;
+
+				cout << "Резултати: " << endl;
+				cout <<
+					userInput << " : " << team[i].footballGames[i].hostTeamName << " "<< 
+					team[i].footballGames[k].hostGoals << " : " << team[i].footballGames[k].guestGoals << 
+					"================" << endl <<
+					team[j].footballGames[k].guestTeamName << " : " << userInput << " " << 
+					team[j].footballGames[k].guestGoals << " : " << team[j].footballGames[k].hostGoals << endl;
+
+				flag = 1;
+				k++;
+			}
+			else flag = 0;
+
+			k++;
+		}
+	}
+
+	if(!flag) cout << "Няма намерен отбор с име " << userInput << "." << endl;
+}
+
+/*
+| Host Team Name | Guest Team Name | Host Goals | Guest Goals |
+
+team 1           team 2              8              7
+team 2           team 1              5              4
+*/
+
+/*
+Регистрация номер: #0001
+Име на отбор: team 1
+Година на създаване на отбора: 2002
+Град на основаване: varna
+
+Регистрация номер: #0002
+Име на отбор: team 2
+Година на създаване на отбора: 1998
+Град на основаване: sofia
+
+Регистрация номер: #0003
+Име на отбор: team 3
+Година на създаване на отбора: 1998
+Град на основаване: ruse
+*/
+
+/*
+| Host Team Name | Guest Team Name | Host Goals | Guest Goals |
+
+team 1           team 2              9              5
+team 1           team 3              6              3
+team 2           team 1              8              9
+team 2           team 3              8              4
+team 3           team 1              5              9
+team 3           team 2              1              1
+
+*/
+
+/*
+void smallestNumberOfLoses(FootballTeam team[], int N) {
+	string tempName;
+	for (int i = 0; i < N; i++)
+	{
+		team[i].footballGameScores[i].hostGoals > team[i].footballGameScores[i].guestGoals ? tempName = team[i].footballGameScores[i].hostTeamName : tempName = team[i].footballGameScores[i].guestTeamName;
+	}
+
+	cout << "Най-малко загуби има отбор: " << tempName << endl << endl;
+}
+*/
+
+int main()
+{
+	setlocale(LC_ALL, "bg_BG");
+
+	int userChoice, numberOfTeams(0), size = N;
+	bool flag = false;
+	FootballTeam teams[N];
+
+	do
+	{
+		do
+		{
+			cout << "=========== Меню ===========" << endl;
+			cout << "1.Въвеждане на участници" << endl;
+			cout << "2.Извеждане на участници" << endl;
+			cout << "3.Извеждане на най-ранно създадения отбор" << endl;
+			cout << "4.Извеждане на отбора с най-малко загуби" << endl;
+			cout << "5.Извеждане на изиграните срещи" << endl;
+			cout << "6.Търсене на отбори" << endl << endl;
+			cout << "0.Изход" << endl;
+			cout << "Избор [0-6]: ";
+
+			cin >> userChoice;
+		} while (userChoice < 0 || userChoice > 6);
+
+		system("cls");
+
+		switch (userChoice) {
+		case 0:
+			exit(0);
+			break;
+		case 1:
+			cout << "=========== Въвеждане на участници ===========" << endl << endl;
+
+			do {
+				cout << "Моля въведете число в интервала [1-5]: ";
+				cin >> numberOfTeams; 
+			} while (numberOfTeams < 1 || numberOfTeams > size);
+
+			addTeams(teams, size, numberOfTeams);
+			break;
+		case 2:
+			cout << "=========== Извеждане на участници ===========" << endl << endl;
+
+			printTeams(teams, size);
+			break;
+		case 3:
+			cout << "=========== Извеждане на най-ранно създадения отбор ===========" << endl << endl;
+
+			earliestCreatedTeam(teams, size);
+			break;
+		case 4:
+			cout << "=========== Извеждане на отбора с най-малко загуби ===========" << endl << endl;
+
+			//smallestNumberOfLoses(teams, N);
+			break;
+		case 5:
+			cout << "=========== Извеждане на срещите ===========" << endl << endl;
+
+			footballMatches(teams, size);
+			break;
+		case 6: 
+			cout << "=========== Търсене на отбори ===========" << endl << endl;
+			searchTeams(teams, size);
+			break;
+		}
+	} while (userChoice != 6);
+
+	system("pause>null");
+	return 0;
+}
