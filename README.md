@@ -2,103 +2,103 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/ngdechev/football-championship?color=yellow)
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/ngdechev/football-championship)
 
-# Проект по Базово Програмиране
-## Задание - "Футболно първенство"
-Да се напише компютърна програма, реализираща информационна система, която поддържа футболно
-първенство (Номер на регистрация, Име на отбор, Година на основаване, списък с изиграни срещи). Програмата
-съхранява и обработва данни за участващите отбори и изиграните мачове. Участниците в първенството са от 3
-до 5.
-## Базова задача – Сложност ниска
-- Меню за избор на функциите в програмата. (7 седмица)
-- Добавяне на участници в първенството (7-8 седмица)
-	- Добавяне на един участник (Име и град);
-	- Добавяне на списък от участници. Въвежда се цяло число n и след него n на брой участници.
-- Извеждане на всички отбори от първенството на екрана (8-9 седмица).
-	- Извеждане на отбори с най-ранна година на основаване
-	- Извеждане на отбори с най-малко загуби
+# Basic Programming Project
+## Assignment - "Football Championship"
+To write a computer program implementing an information system that supports soccer
+championship (Registration number, Team name, Year of foundation, list of matches played). The program
+stores and processes data about participating teams and played matches. There are 3 participants in the championship
+until 5.
+## Basic task – Difficulty Low
+- Menu for selecting the functions in the program. (week 7)
+- Adding participants to the championship (week 7-8)
+	- Add a participant (Name and city);
+	- Adding a list of participants. An integer n is entered followed by n of the number of participants.
+- Bringing all teams from the championship to the screen (week 8-9).
+	- Output teams with the earliest year of foundation
+	- Bringing out the teams with the fewest losses
 
-## Допълнение Първо – Сложност средна (+ Базова задача)
-- Провеждане на първенството (10-11 седмица)
-	- Всички отбори се срещат помежду си в разменени гостувания, на случаен принцип се генерира
-резултата от срещата и се записва в списък с изиграни срещи за двата участващи отбора;
-	- Извежда се таблица с изиграните срещи и резултати.
+## Addendum One - Difficulty Medium (+ Basic Task)
+- Holding the championship (week 10-11)
+	- All teams meet each other in swapped away games, randomly generated
+the result of the match and is recorded in a list of matches played for the two participating teams;
+	- A table with the played matches and results is displayed.
 
-## Допълнение Второ – Сложност висока (+ Базова задача + Допълнение Първо)
+## Supplement Two - Difficulty High (+ Base Task + Supplement One)
 
-- Търсене на отбори в първенството: (9-10 седмица)
-	- Извеждане на отбора със всички изиграни мачове по въведено име на отбор;
-	- Извеждане на резултатите от изиграните мачове за два отбора, по въведени имена;
+- Search for teams in the championship: (week 9-10)
+	- Displaying the team with all played matches by entered team name;
+	- Displaying the results of the matches played for two teams, by entered names;
 
-## Допълнение Трето – Сложност висока (+ Базова задача + Допълнение Първо + Допълнение Второ)
+## Supplement Three – Difficulty High (+ Base Task + Supplement One + Supplement Two)
 
-- Справки за участниците отбори с под меню (11-12 седмица)
-	- Извеждане на всички участниците в подреден ред по:
-		- Година на основаване на отбора;
-		- Спечелени точки.
-	- Извеждане на отбора отбелязал най-много попадения;
-		 - Извеждане на отбора с най-добра голова разлика.
-- Данните в програмата да могат да се запазват във файл между две стартирания на програмата.
+- References for the participants teams with sub menu (11-12 weeks)
+	- Display all participants in order by:
+		- Year of foundation of the team;
+		- Points earned.
+	- Output of the team that scored the most hits;
+		- Bringing out the team with the best goal difference.
+- The data in the program can be saved in a file between two starts of the program.
 
-## Допълнение Четвърто – (за допълнителни точки)
-- Допълнителни условия:
-	- При добавянето на нов участник да се даде възможност за избор дали да се въведе нов
-или да прекъсне въвеждането.
-	- Да се реализира извеждането на отборите в табличен вид (Име на отбор, вкарани
-голове, допуснати голове, точки и изиграни мачове с резултат).
-	- Да се записват данните в двоичен файл.
+## Supplement Four – (for extra points)
+- Additional conditions:
+	- When adding a new participant, give the option of choosing whether to enter a new one
+or interrupt input.
+	- To realize the display of the teams in tabular form (Name of the team, scored
+goals, goals conceded, points and games played with a result).
+	- To save the data to a binary file.
 
-## Пускане на програмата (.exe файл)
-Път към .exe файла на програмата:
+## Run the program (.exe file)
+Path to the program's .exe file:
 > ..\FootballChampionship\Debug\FootballChampionship.exe
 
-Път към текстовия файл (Допълнение Трето):
+Path to text file (Appendix Three):
 > ..FootballChampionship\Debug\footballMatches.txt
 
-Път към двоичния файл на програмата (Допълнение Четвърто):
+Path to the program binary (Appendix Four):
 > ..FootballChampionship\Debug\footballMatches.dat
 
-## Разработка на проекта
-За изработката на проекта са използвани следните езици за програмиране:
+## Project development
+The following programming languages were used for the development of the project:
 1. C++
 
-И следните инструменти:
+And the following tools:
 1. Visual Studio 2019
 
 ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) ![Visual Studio](https://img.shields.io/badge/Visual%20Studio-5C2D91.svg?style=for-the-badge&logo=visual-studio&logoColor=white)
 
-## Скрийншоти от изпълнението на програмата
-### Главно меню
+## Screenshots of the program execution
+### Main menu
 ![1.png](https://i.postimg.cc/ZRKBz1kR/1.png)
 
-### Въвеждане на отборите / участниците
+### Introduction of the teams / participants
 ![2.png](https://i.postimg.cc/XqrrpdY6/2.png)
 
-### Принтиране на отборите на екрана
+### Print the teams on the screen
 ![3.png](https://i.postimg.cc/zv4VWvyb/3.png)
 
-### Най-ранно създаденият отбор
+### The earliest team created
 ![4.png](https://i.postimg.cc/nVWsNR3F/4.png)
 
-### Генериране на срещите / мачовете
+### Generate the meetings / matches
 ![5.png](https://i.postimg.cc/kXtVCQHx/5.png)
 
-### Меню за справки
+### Reference menu
 ![6.png](https://i.postimg.cc/3x5kxyMz/6.png)
 
-### Подменю 1 - Извеждане на всички участниците в подреден ред
+### Submenu 1 - Display all participants in order
 ![7.png](https://i.postimg.cc/8zRjJ1Nc/7.png)
 
-### Извеждане на всички участниците в подреден ред – по година на основаване
+### Display all participants in order - by year of foundation
 [![8.png](https://i.postimg.cc/HWPtktkn/8.png)](https://postimg.cc/QV17615Z)
 
-### Извеждане на всички участниците в подреден ред – по спечелени точки
+### Display all participants in order - by points earned
 ![9.png](https://i.postimg.cc/fb5yCB3h/9.png)
 
-### Меню за запазване на срещите във файл
+### Menu to save appointments to a file
 ![10.png](https://i.postimg.cc/zBBBcKWH/10.png)
 
-### Запазване във файл – Текстов
+### Save to File – Text
 ![11.png](https://i.postimg.cc/hj5jWvby/11.png)
 
-### Запазване във файл – Двоичен
+### Save to file - Binary
 ![12.png](https://i.postimg.cc/pyNLrSSK/12.png)
